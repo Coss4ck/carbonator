@@ -57,6 +57,7 @@ class BurpExtender(IBurpExtender, IHttpListener, IScannerListener):
 	self._callbacks.excludeFromScope(self.url)
 
 	print "Generating Report"
+	self.generateReport('XML')
 	self.generateReport('HTML')
 	print "Report Generated"
 	print "Closing Burp in", self.packet_timeout, "seconds."
@@ -87,7 +88,7 @@ class BurpExtender(IBurpExtender, IHttpListener, IScannerListener):
 	if format != 'XML':
 		format = 'HTML'	
 
-	file_name = 'IntegrisSecurity_Carbonator_'+self.scheme+'_'+self.fqdn+'_'+str(self.port)+'.'+format.lower()
+	file_name = 'Carbonator_'+self.scheme+'_'+self.fqdn+'_'+str(self.port)+'.'+format.lower()
 	self._callbacks.generateScanReport(format,self.scanner_results,File(file_name))
 
 	time.sleep(5)
