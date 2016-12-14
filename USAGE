@@ -1,0 +1,2 @@
+root@Brimham:~/# ./launch_burp.sh http cybersecurityconfidence.com 80 / --project-file=/root/CSC/output/burpTest/burpTest9.burp --config-file=/root/CSC/Burp/Burp-default-project.json
+Launching Scan against http://cybersecurityconfidence.com:80/
