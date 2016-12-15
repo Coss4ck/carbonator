@@ -3,30 +3,25 @@
 # Released under GPL Version 2 license.
 # Use at your own risk
 
-if [[ -n $1 && -n $2 && -n $3 ]] #not provide enough parameters to launch carbonator
+if [[ -n $1 && -n $2 && -n $3 && -n $4 ]] #not provide enough parameters to launch carbonator
 then
 	SCHEME=$1
 	FQDN=$2
 	PORT=$3
-	if [[ -n $4 ]]
-	then
-		FOLDER=$4
-	fi
+	FOLDER=$4
+	# Options allow the defining of projects and configs
+	# --project-file=/path.burp
+	# --config-file=/path.json
+	# http://blog.portswigger.net/2016/04/introducing-burp-projects.html
+	OPTIONS1=$5
+	OPTIONS2=$6
 
-	if [[ -n $5 ]]
-	then
-		EMAIL=$5
-		echo Launching Scan against $1://$2:$3$4 EMailing reports to $5
-		#java -jar -Xmx1024m ../burp_suite/burpsuite_pro_v1.6.02.jar $SCHEME $FQDN $PORT $FOLDER
-		java -jar -Xmx1024m /opt/BurpSuitePro/burpsuite_pro.jar $SCHEME $FQDN $PORT $FOLDER
-		echo 'Your scan results are attached to this email. Please visit https://www.integrissecurity.com/index.php?resources=Carbonator for more information.' | mutt -s 'Integris Security Carbonator Results' $5 -a IntegrisSecurity_Carbonator_$1_$2_$3.html && rm IntegrisSecurity_Carbonator_$1_$2_$3.html
-	else
-		echo Launching Scan against $1://$2:$3$4
-		java -jar -Xmx1024m /opt/BurpSuitePro/burpsuite_pro.jar $SCHEME $FQDN $PORT $FOLDER
-	fi
+	echo Launching Scan against $1://$2:$3$4
+	java -jar -Xmx1024m /opt/BurpSuitePro/burpsuite_pro.jar $SCHEME $FQDN $PORT $FOLDER $OPTIONS1 $OPTIONS2
+	#java -Djava.awt.headless=true -jar -Xmx1024m /opt/BurpSuitePro/burpsuite_pro.jar $SCHEME $FQDN $PORT $FOLDER $OPTIONS1 $OPTIONS2
 else
-	echo Usage: $0 scheme fqdn port path email
-	echo '    'Example: $0 http localhost 80 /folder carbonator@integrissecurity.com
+	echo Usage: $0 scheme fqdn port path --project-file=PATHTOFILE --config-file=PATHTOFILE
+	echo '    'Example: $0 http www.rminfosec.co.uk 80 / --project file=/<PATH> --config-file=/root/CSC/Burp/Burp-default-project.json
 	echo '    Scan multiple sites: cat scheme_fqdn_port.txt | xargs -L1 '$0
 fi
 
