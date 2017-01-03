@@ -88,7 +88,7 @@ class BurpExtender(IBurpExtender, IHttpListener, IScannerListener):
 	if format != 'XML':
 		format = 'HTML'	
 
-	file_name = 'Carbonator_'+self.scheme+'_'+self.fqdn+'_'+str(self.port)+'.'+format.lower()
+	file_name = 'Burp-'+self.scheme+'-'+str(self.port)+'-'+self.fqdn+'.'+format.lower()
 	self._callbacks.generateScanReport(format,self.scanner_results,File(file_name))
 
 	time.sleep(5)
@@ -104,6 +104,7 @@ class BurpExtender(IBurpExtender, IHttpListener, IScannerListener):
 		print "If Carbonator was loaded through the BApp store then you can run in headless mode simply adding the `-Djava.awt.headless=true` flag from within your shell. Note: If burp doesn't close at the conclusion of a scan then disable Automatic Backup on Exit."
 		print "For questions or feature requests contact us at carbonator at integris security dot com."
 		print "Visit carbonator at https://www.integrissecurity.com/Carbonator"
+		print "MW 030117 - Filename update"
 		return False
 	elif cli[0] == 'https' or cli[0] == 'http': #cli[0]=scheme,cli[1]=fqdn,cli[2]=port
 		self.scheme = cli[0]
