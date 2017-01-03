@@ -1,2 +1,17 @@
+#When run form a terminal the scanner will just start
+
 root@Brimham:~/# ./launch_burp.sh http cybersecurityconfidence.com 80 / --project-file=/root/CSC/output/burpTest/burpTest9.burp --config-file=/root/CSC/Burp/Burp-default-project.json
 Launching Scan against http://cybersecurityconfidence.com:80/
+
+#When run for X the below will prompt for a project file
+#To run with a pause for the GUI remove --proejct-file and add manually
+root@Brimham:~/# ./launch_burp.sh http cybersecurityconfidence.com 80 / --config-file=/root/CSC/Burp/Burp-default-project.json
+Launching Scan against http://cybersecurityconfidence.com:80/
+
+#When run for X with a project file it will bypass the splash screen for project, but scanner will be paused.
+root@Brimham:~/# ./launch_burp.sh http cybersecurityconfidence.com 80 / --project-file=/root/CSC/output/burpTest/burpTest9.burp --config-file=/root/CSC/Burp/Burp-default-project.json
+Launching Scan against http://cybersecurityconfidence.com:80/
+
+#To run headless in X
+java -Djava.awt.headless=true -jar -Xmx1024m /opt/BurpSuitePro/burpsuite_pro.jar $SCHEME $FQDN $PORT $FOLDER $OPTIONS1 $OPTIONS2
+
